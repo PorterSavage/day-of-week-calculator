@@ -1,14 +1,24 @@
-export function weekDay(myDate) {
-    var d = new Date(myDate);
+export default class Weekday {
 
-    var weekday = new Array(7);
- 
-    weekday[0] = "Monday";
-    weekday[1] = "Tuesday";
-    weekday[2] = "Wednesday";
-    weekday[3] = "Thursday";
-    weekday[4] = "Friday";
-    weekday[5] = "Saturday";    
-    weekday[6] =  "Sunday";
-    return weekday[d.getDay()];
+  constructor(myDate) {
+    this.myDate = myDate;
+    this.year = parseInt(this.myDate.substring(0,4));
+    this.month = parseInt(this.myDate.substring(5,7));
+    this.day = parseInt(this.myDate.substring(8,10));
+  }
+    
+  get dayOfWeek() {
+    let monthDays = [];
+    if (this.year % 4 === 0 && (this.year % 100 != 0 || this.year % 400 === 0)) {
+      monthDays = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];       
+    }
+    else {
+      monthDays = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    }
+
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let days = ((this.year - 1) * 365) + Math.floor(((this.year - 1) / 4)) - Math.floor(((this.year - 1) / 100)) + Math.floor(((this.year - 1) / 400))  + monthDays[this.month - 1] + this.day;
+
+    return daysOfWeek[(days % 7)];
+  }
 }

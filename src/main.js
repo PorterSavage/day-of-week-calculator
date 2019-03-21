@@ -1,10 +1,10 @@
-import { weekDay } from './weekday';
+import Weekday from './weekday.js';
 
 $(document).ready(function() {
   $('#weekday-form').submit(function(event) {
     event.preventDefault();
-    var myDate = $('#myDate').val();
-    var output = weekDay(myDate);
-    $('#result').text(output);
+    let myDate = $('#myDate').val();
+    let d = new Weekday(myDate);
+    $('#result').text(d.dayOfWeek);
   });
 });
